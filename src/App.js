@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import React,{useState,useEffect} from 'react';
+import axios from 'axios';
+import Card from './Components/Card';
+import { GlobalStyle } from './Components/GlobalStyle';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+export default function App(){
+  
+  const[api,setApi]=useState([])
+
+  const getApi=() => {
+    axios.get('https://hp-api.herokuapp.com/api/characters').then(response => {
+      console.log(response.data)
+      setApi(response.data.slice(0,25))
+    })
+  }
+  
+  useEffect(() => {
+    getApi()
+  },[])
+
+  return(
+    <>
+    <GlobalStyle/>
+    <Card array={api}/>
+    </>
+  )
 }
-
-export default App;
