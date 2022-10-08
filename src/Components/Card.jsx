@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React from 'react';
 import * as S from './StyleCard'
 
 export default function Card(props){
